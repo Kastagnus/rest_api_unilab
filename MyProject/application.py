@@ -1,7 +1,7 @@
 from flask import Flask, redirect
 from flask_restful import Api
 from flask_jwt import JWT
-from security import authentication, identity
+from MyProject.security import authentication, identity
 from MyProject.resources.hotel_rooms import All_Room, Room
 from MyProject.resources.user import RegisterUser
 
