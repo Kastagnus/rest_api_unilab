@@ -1,4 +1,4 @@
-from db import db
+from MyProject.db import db
 
 class HotelRooms(db.Model):
 
@@ -9,18 +9,25 @@ class HotelRooms(db.Model):
     price = db.Column(db.Integer)
     quantity = db.Column(db.Integer)
 
+
+
     def __init__(self,room_type, price, quantity):
 
         self.room_type = room_type
         self.price = price
         self.quantity = quantity
 
+    @classmethod
+    def all_data(cls):
+
+        return {"rooms":list(map(lambda room: room.json(), cls.query.all()))}
+
     def json(self):
         return {"room_type":self.room_type,"price":self.price,"quantity":self.quantity}
 
     @classmethod
-    def findbyname(cls, room_type):
-        room = cls.query.filter_by(room_type=room_type).first()
+    def find_by_name(cls, room_type):
+        room = cls.query.filter_by(room_type=room_type)
         return room
 
 

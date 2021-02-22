@@ -7,14 +7,19 @@ from MyProject.models.hotelrooms import HotelRooms
 class All_Room(Resource):
 
     def get(self):
-        connection = sqlite3.connect("hotelrooms.db")
-        cursor = connection.cursor()
-        query = "SELECT * FROM hotel_rooms"
-        result = cursor.execute(query, ())
-        rooms = result.fetchall()
-        connection.commit()
-        connection.close()
-        return rooms, 200
+        # connection = sqlite3.connect("hotelrooms.db")
+        # cursor = connection.cursor()
+        # query = "SELECT * FROM hotel_rooms"
+        # result = cursor.execute(query, ())
+        # rooms = result.fetchall()
+        # connection.commit()
+        # connection.close()
+        try:
+            allroom = HotelRooms.all_data()
+        except:
+            return {"message":"no access"}, 404
+        else:
+            return allroom, 200
 
     @jwt_required()
     def delete(self):
@@ -32,14 +37,14 @@ class Room(Resource):
 
     def get(self, room_type):
 
-        room = HotelRooms.findbyname(room_type)
+        room = HotelRooms.find_by_name(room_type)
         if room:
             return room.json()
 
         return {"message":"This room doesn't exist"}
 
     def post(self, room_type):
-        room = HotelRooms.findbyname(room_type)
+        room = HotelRooms.find_by_name(room_type)
         if room:
             return "This room already exists", 400
 
@@ -49,7 +54,7 @@ class Room(Resource):
         return "New room has been added successfully", 200
 
     def put(self, room_type):
-        room = HotelRooms.findbyname(room_type)
+        room = HotelRooms.find_by_name(room_type)
         params = Room.my_parser.parse_args()
 
         if room:
@@ -66,7 +71,7 @@ class Room(Resource):
 
     def delete(self, room_type):
 
-        room = HotelRooms.findbyname(room_type)
+        room = HotelRooms.find_by_name(room_type)
         if room:
             room.delete_from_db()
             return "Item deleted successfully", 200
