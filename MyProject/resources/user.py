@@ -1,7 +1,7 @@
 import sqlite3
 from flask import Flask
 from flask_restful import Resource,Api, reqparse
-from models.user import UserModel
+from MyProject.models.user import UserModel
 
 class RegisterUser(Resource):
 
@@ -12,4 +12,6 @@ class RegisterUser(Resource):
     def post(self):
 
         params = RegisterUser.myparser.parse_args()
-        return UserModel.add(params)
+        new_user = UserModel(**params)
+        new_user.add()
+        return {"message":"User registered successfully"}

@@ -1,8 +1,8 @@
-import sqlite3
-from MyProject.resources import hotel_rooms
-from MyProject.security import users
+# import sqlite3
+# from MyProject.resources import hotel_rooms
+# from MyProject.security import users
 
-# connection = sqlite3.connect("hotelrooms.db")
+# connection = sqlite3.connect("alldata.db")
 # cursor = connection.cursor()
 # cursor.execute("CREATE TABLE IF NOT EXISTS hotel_rooms(id INTEGER PRIMARY KEY, room_type text, price int , quantity int)")
 # query_string = "INSERT INTO hotel_rooms VALUES(?,?,?,?)"
