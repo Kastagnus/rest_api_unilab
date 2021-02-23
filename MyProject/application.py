@@ -12,6 +12,9 @@ app.config['PROPAGATE_EXCEPTIONS'] = True
 appI = Api(app)
 jwt = JWT(app, authentication, identity)
 
+@app.before_first_request
+def create_table():
+    db.create_all()
 
 @app.route("/")
 def home():
@@ -22,4 +25,8 @@ appI.add_resource(All_Room, "/about/")
 appI.add_resource(Room, "/about/<string:room_type>")
 appI.add_resource(RegisterUser, "/registration/")
 
-app.run(debug=True, port=5100)
+if __name__ == "__main__":
+
+    from MyProject.db import db
+    db.init_app(app)
+    app.run(debug=True, port=5100)
