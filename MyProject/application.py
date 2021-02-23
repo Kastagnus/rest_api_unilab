@@ -20,7 +20,3 @@ def home():
 appI.add_resource(All_Room, "/about/")
 appI.add_resource(Room, "/about/<string:room_type>")
 appI.add_resource(RegisterUser, "/registration/")
-
-from MyProject.db import db
-db.init_app(app)
-app.run(debug=True, port=5100)
