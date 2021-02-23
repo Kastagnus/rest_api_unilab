@@ -5,7 +5,7 @@ class HotelRooms(db.Model):
     __tablename__ = "hotel_rooms"
 
     id = db.Column(db.Integer, primary_key=True)
-    room_type = db.Column(db.String)#(characte count)
+    room_type = db.Column(db.String)
     price = db.Column(db.Integer)
     quantity = db.Column(db.Integer)
 

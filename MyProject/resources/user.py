@@ -1,6 +1,4 @@
-import sqlite3
-from flask import Flask
-from flask_restful import Resource,Api, reqparse
+from flask_restful import Resource, reqparse
 from MyProject.models.user import UserModel
 
 class RegisterUser(Resource):

@@ -2,10 +2,8 @@ from flask_jwt import jwt_required
 from flask_restful import Resource, reqparse
 from MyProject.models.hotelrooms import HotelRooms
 
-
 class All_Room(Resource):
 
-    @jwt_required()
     def get(self):
         try:
             allroom = HotelRooms.retrieve_all_data()
@@ -14,14 +12,9 @@ class All_Room(Resource):
         else:
             return allroom, 200
 
+    @jwt_required()
     def delete(self):
-        # connection = sqlite3.connect("alldata.db")
-        # cursor = connection.cursor()
-        # query = "DELETE FROM hotel_rooms"
-        # cursor.execute(query, ())
-        # allroom = HotelRooms.retrieve_all_data()
-        # for room in allroom["rooms"]:
-        #     room.delete_from_db()
+
         HotelRooms.delete_all_data()
         return "All the rooms deleted successfully!", 200
 
@@ -31,7 +24,7 @@ class Room(Resource):
     my_parser.add_argument("price", type=int, required=True)
     my_parser.add_argument("quantity", type=int, required=True)
 
-    @jwt_required()
+
     def get(self, room_type):
 
         room = HotelRooms.find_by_name(room_type)
@@ -40,6 +33,7 @@ class Room(Resource):
 
         return {"message":"This room doesn't exist"}
 
+    @jwt_required()
     def post(self, room_type):
         room = HotelRooms.find_by_name(room_type)
         if room:
@@ -50,6 +44,7 @@ class Room(Resource):
         new_room.save_to_db()
         return "New room has been added successfully", 200
 
+    @jwt_required()
     def put(self, room_type):
         room = HotelRooms.find_by_name(room_type)
         params = Room.my_parser.parse_args()
@@ -65,7 +60,7 @@ class Room(Resource):
 
         return "Successful operation", 200
 
-
+    @jwt_required()
     def delete(self, room_type):
 
         room = HotelRooms.find_by_name(room_type)
