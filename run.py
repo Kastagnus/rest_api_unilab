@@ -1,6 +1,7 @@
 from MyProject.application import app
 from MyProject.db import db
 
+db.init_app(app)
 
 @app.before_first_request
 def create_table():
@@ -8,6 +9,5 @@ def create_table():
 
 if __name__ == "__main__":
 
-    db.init_app(app)
     app.run(debug=True, port=5100)
 
