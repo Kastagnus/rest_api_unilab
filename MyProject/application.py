@@ -12,6 +12,7 @@ app.config['PROPAGATE_EXCEPTIONS'] = True
 appI = Api(app)
 jwt = JWT(app, authentication, identity)
 
+
 @app.route("/")
 def home():
 
