@@ -10,6 +10,10 @@ class RegisterUser(Resource):
     def post(self):
 
         params = RegisterUser.myparser.parse_args()
+        user = UserModel.search_by_username(params["username"])
+        if user:
+            return "This username already exists", 400
+
         new_user = UserModel(**params)
         new_user.add()
-        return {"message":"User registered successfully"}
+        return {"message": "User registered successfully"},200

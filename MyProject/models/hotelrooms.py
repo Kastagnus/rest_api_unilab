@@ -26,16 +26,20 @@ class HotelRooms(db.Model):
     def delete_all_data(cls):
 
         allrooms = cls.query.all()
+
         for room in allrooms:
+
             db.session.delete(room)
             db.session.commit()
 
 
     def json(self):
+
         return {"room_type":self.room_type,"price":self.price,"quantity":self.quantity}
 
     @classmethod
     def find_by_name(cls, room_type):
+
         room = cls.query.filter_by(room_type=room_type).first()
         return room
 

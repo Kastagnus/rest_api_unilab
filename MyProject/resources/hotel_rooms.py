@@ -31,7 +31,7 @@ class Room(Resource):
         if room:
             return room.json()
 
-        return {"message":"This room doesn't exist"}
+        return {"message":"This room doesn't exist"}, 404
 
     @jwt_required()
     def post(self, room_type):
@@ -53,12 +53,13 @@ class Room(Resource):
 
             room.price = params["price"]
             room.quantity = params["quantity"]
+            room.save_to_db()
+            return "Room has been updated successfully", 200
 
         room = HotelRooms(**params)
-
         room.save_to_db()
 
-        return "Successful operation", 200
+        return "room has been added successfully", 200
 
     @jwt_required()
     def delete(self, room_type):
